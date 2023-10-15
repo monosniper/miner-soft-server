@@ -1,7 +1,14 @@
 const UserService = require('../services/user-service');
 const ApiError = require("../exceptions/api-error");
+const User = require('../models/user-model')
+const UserDto = require('../dtos/user-dto')
 
 class UserController {
+    async index(req, res, next) {
+	const users = await User.findAll()
+	return res.json(users.map(user => new UserDto(user)))
+    }
+
     async register(req, res, next) {
 	try {
 	    const {name, username, password} = req.body;

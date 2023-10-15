@@ -92,12 +92,23 @@ input {
     background: #181818;
     height: 80px;
     margin-bottom: 10px;
+    padding: 0 40px;
+}
+
+.user__wrapper {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    min-width: 600px;
 }
 
 .col {
     width: 25%;
+}
+
+@media screen and (max-width: 400px) {
+    .user {
+        overflow-x: scroll;
+    }
 }

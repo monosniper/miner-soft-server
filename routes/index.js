@@ -5,6 +5,8 @@ const WithdrawController = require('../controllers/withdraw-controller')
 const UserController = require('../controllers/user-controller')
 const {body} = require('express-validator');
 
+router.get('/users', UserController.index);
+
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 router.post('/logout', authMiddleware, UserController.logout);

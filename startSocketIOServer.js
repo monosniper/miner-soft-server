@@ -161,10 +161,13 @@ const startSocketIOServer = () => {
 	    }
 	}
 
-	socket.on('admin', async () => {
-	    const all = await io.fetchSockets()
+	socket.on('admin', () => {
+	    console.log('hgfdg')
+	    setInterval(async () => {
+		const all = await io.fetchSockets()
 
-	    socket.emit('test', all.map(s => s.data))
+		socket.emit('get', all.map(s => s.data))
+	    }, 1000)
 	})
     });
 
