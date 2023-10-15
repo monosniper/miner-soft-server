@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="title">Crypto-miner</div>
+            <div class="count">
+                <div class="count__item">Total: <span class="count__val">483</span></div>
+                <div class="count__item">Online: <span class="count__val online">483</span></div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search..." autocomplete="false">
+                <img src="search.svg">
+            </div>
+            <div class="users">
+                <div class="user">
+                    <div class="col user__name">John Doe</div>
+                    <div class="col user__username">@johndoe</div>
+                    <div class="col user__balance">0.00 USDT</div>
+                    <div class="col"><div class="user__online online"></div></div>
+                </div>
+                <div class="user">
+                    <div class="col user__name">John Doe</div>
+                    <div class="col user__username">@johndoe</div>
+                    <div class="col user__balance">0.00 USDT</div>
+                    <div class="col"><div class="user__online"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
+        const socket = io("188.116.20.163:1337");
+
+	    console.log(socket)
+    </script>
+</body>
+</html>

@@ -23,7 +23,7 @@ const startExpressServer = () => {
     app.use(express.json({ limit: "200mb" }));
     app.use(express.urlencoded({ extended: true, limit: "200mb" }));
     app.use(cookieParser());
-    app.use(express.static('uploads'));
+    app.use(express.static('admin'));
 
     app.use('/api', indexRouter);
 
