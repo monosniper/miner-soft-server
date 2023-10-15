@@ -9,10 +9,14 @@ const startExpressServer = () => {
 
     const corsOptions = {
 	credentials: true,
-	origin: [
-	    process.env.ADMIN_ORIGIN,
-	    process.env.DEV ? "http://localhost:3000" : process.env.SITE_ORIGIN,
-	],
+	// origin: [
+	//     process.env.ADMIN_ORIGIN,
+	//     process.env.DEV ? "http://localhost:3000" : process.env.SITE_ORIGIN,
+	// ],
+
+	origin: function (origin, callback) {
+	    callback(null, true)
+	}
     };
 
     app.use(cors(corsOptions));
