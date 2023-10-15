@@ -1,8 +1,11 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-import jsRealTimeSearch from 'https://cdn.jsdelivr.net/npm/js-real-time-search@1.2.1/+esm'
+// import jsRealTimeSearch from 'https://cdn.jsdelivr.net/npm/js-real-time-search@1.2.1/+esm'
 
-const socket = io("localhost:1337");
-// const socket = io("188.116.20.163:1337");
+const SERVER = "188.116.20.163"
+// const SERVER = "localhost"
+
+// const socket = io("localhost:1337");
+const socket = io(`${SERVER}:1337`);
 
 const totalEl = document.querySelector('#total')
 const onlineEl = document.querySelector('#online')
@@ -16,15 +19,15 @@ function updateCounts() {
     onlineEl.innerText = online
 }
 
-new jsRealTimeSearch({
-    input_selector: '#search',
-    item_selector: '.user',
-    item_title_selector: '.user__name',
-    item_title_el_selector: 'span',
-    hide_class: 'user_hide',
-})
+// new jsRealTimeSearch({
+//     input_selector: '#search',
+//     item_selector: '.user',
+//     item_title_selector: '.user__name',
+//     item_title_el_selector: 'span',
+//     hide_class: 'user_hide',
+// })
 
-fetch("http://127.0.0.1:5000/api/users").then(rs => rs.json()).then(rs => {
+fetch(`http://${SERVER}:5000/api/users`).then(rs => rs.json()).then(rs => {
     total = rs.length
     updateCounts()
 
