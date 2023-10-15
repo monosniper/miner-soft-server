@@ -11,5 +11,6 @@ router.post('/logout', authMiddleware, UserController.logout);
 
 router.post('/withdraw', authMiddleware, WithdrawController.store);
 router.put('/options', authMiddleware, UserController.update);
+router.put('/balance', authMiddleware, UserController.updateBalance);
 
 module.exports = router;

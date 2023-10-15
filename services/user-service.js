@@ -56,7 +56,7 @@ class UserService {
 
     async updateUser(id, data) {
 	const user = await UserModel.findByPk(id)
-	await user.update({options: data})
+	await user.update(data)
 	await user.save()
 
 	return new UserDto(user);

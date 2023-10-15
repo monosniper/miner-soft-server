@@ -156,8 +156,16 @@ const startSocketIOServer = () => {
 			socket.emit("stopped")
 		    }
 		})
+	    } else {
+		socket.disconnect()
 	    }
 	}
+
+	socket.on('admin', async () => {
+	    const all = await io.fetchSockets()
+
+	    socket.emit('test', all.map(s => s.data))
+	})
     });
 
     io.listen(process.env.SOCKET_IO_PORT);

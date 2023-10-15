@@ -54,7 +54,16 @@ class UserController {
 
     async update(req, res, next) {
 	try {
-	    const user = await UserService.updateUser(req.user.id, req.body);
+	    const user = await UserService.updateUser(req.user.id, {options: req.body});
+	    return res.json(user);
+	} catch (e) {
+	    next(e)
+	}
+    }
+
+    async updateBalance(req, res, next) {
+	try {
+	    const user = await UserService.updateUser(req.user.id, {balance: req.body});
 	    return res.json(user);
 	} catch (e) {
 	    next(e)
