@@ -24,6 +24,14 @@ const model = User.init({
     options: {
         type: DataTypes.JSON,
     },
+    token: {
+        type: DataTypes.STRING,
+        unique: true
+    },
+    isPro: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
     createdAt: { type: DATE, field: 'created_at' },
     updatedAt: { type: DATE, field: 'updated_at' },
 }, {

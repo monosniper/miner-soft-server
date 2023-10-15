@@ -3,11 +3,13 @@ module.exports = class UserDto {
     username;
     name;
     options;
+    token;
 
     constructor(model) {
 	this.id = model.id;
 	this.username = model.username;
 	this.name = model.name;
 	this.options = model.options;
+	this.token = model.token;
     }
 }

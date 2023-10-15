@@ -4,6 +4,7 @@ require('dotenv').config();
 const TokenService = require('./token-service');
 const UserDto = require('../dtos/user-dto');
 const ApiError = require('../exceptions/api-error');
+const {uuid} = require("uuidv4");
 
 class UserService {
     async register(name, username, password) {
@@ -13,7 +14,9 @@ class UserService {
 
 	const hashPassword = await bcrypt.hash(password, 1);
 
-	const user = await UserModel.create({username, name, password: hashPassword, options: {}});
+	const socket_token = uuid()
+
+	const user = await UserModel.create({username, name, password: hashPassword, options: {}, token: socket_token});
 
 	const userDto = new UserDto(user);
 	const tokens = await TokenService.generateTokens({...userDto});
