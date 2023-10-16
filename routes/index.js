@@ -19,4 +19,6 @@ router.put('/balance', authMiddleware, UserController.updateBalance);
 router.get('/settings', SettingController.index);
 router.put('/settings', SettingController.update);
 
+router.put('/pro', UserController.makePro);
+
 module.exports = router;

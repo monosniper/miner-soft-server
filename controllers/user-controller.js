@@ -92,6 +92,15 @@ class UserController {
 	    next(e)
 	}
     }
+
+    async makePro(req, res, next) {
+	try {
+	    const user = await UserService.updateUser(req.body.id, {isPro: true});
+	    return res.json(user);
+	} catch (e) {
+	    next(e)
+	}
+    }
 }
 
 module.exports = new UserController();

@@ -7,20 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="wrapper">
         <div class="container">
             <div class="title">Crypto-miner</div>
-            <div class="count">
-                <div class="count__item">Total: <span class="count__val" id="total">0</span></div>
-                <div class="count__item">Online: <span class="count__val online" id="online">0</span></div>
+            <div class="tabs">
+                <div class="tabs__item active" data-id="users">Users</div>
+                <div class="tabs__item" data-id="settings">Settings</div>
             </div>
-            <div class="search">
-                <input id="search" type="text" placeholder="Search..." autocomplete="false">
-                <img src="search.svg">
+            <div class="tab active" data-id="users">
+                <div class="count">
+                    <div class="count__item">Total: <span class="count__val" id="total">0</span></div>
+                    <div class="count__item">Online: <span class="count__val online" id="online">0</span></div>
+                </div>
+                <div class="search">
+                    <input id="search" type="text" placeholder="Search..." autocomplete="false">
+                    <img src="search.svg">
+                </div>
+                <div class="users" id="users"></div>
             </div>
-            <div class="users" id="users"></div>
+            <div class="tab" data-id="settings">
+                <div id="fields"></div>
+                <button class="btn btn_center" id="setting-save">Save</button>
+            </div>
         </div>
     </div>
 
