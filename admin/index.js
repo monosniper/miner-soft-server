@@ -1,8 +1,8 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 // import jsRealTimeSearch from 'https://cdn.jsdelivr.net/npm/js-real-time-search@1.2.1/+esm'
 
-// const SERVER = "188.116.20.163"
-const SERVER = "localhost"
+const SERVER = "188.116.20.163"
+// const SERVER = "localhost"
 
 // const socket = io("localhost:1337");
 const socket = io(`${SERVER}:1337`);
