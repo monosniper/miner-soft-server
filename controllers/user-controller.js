@@ -95,7 +95,16 @@ class UserController {
 
     async makePro(req, res, next) {
 	try {
-	    const user = await UserService.updateUser(req.body.id, {isPro: true});
+	    const user = await UserService.updateUser(req.body.id, {status: 'pro'});
+	    return res.json(user);
+	} catch (e) {
+	    next(e)
+	}
+    }
+
+    async makeDefault(req, res, next) {
+	try {
+	    const user = await UserService.updateUser(req.body.id, {status: 'default'});
 	    return res.json(user);
 	} catch (e) {
 	    next(e)

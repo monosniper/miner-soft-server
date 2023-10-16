@@ -20,7 +20,8 @@ router.put('/balance', authMiddleware, UserController.updateBalance);
 router.get('/settings', SettingController.index);
 router.put('/settings', SettingController.update);
 
-router.put('/pro', UserController.makePro);
+router.put('/make/default', UserController.makeDefault);
+router.put('/make/pro', UserController.makePro);
 
 
 router.get('/test', async (req, res, next) => {

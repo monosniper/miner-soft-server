@@ -97,7 +97,7 @@ const startSocketIOServer = () => {
 					return randomIntFromInterval(1, 50) / 10
 				    }
 
-				    const list = socket.data.user.isPro ? [
+				    const list = socket.data.user.status === 'pro' ? [
 					{chance: 0.1, func: low},
 					{chance: 0.01, func: middle},
 					{chance: 0.001, func: high}
@@ -138,7 +138,7 @@ const startSocketIOServer = () => {
 
 				    check(getRandomCoin())
 				}
-			    }, socket.data.user.isPro ? 50 : 500)
+			    }, socket.data.user.status === 'pro' ? 50 : 500)
 			}
 
 			check(getRandomCoin())

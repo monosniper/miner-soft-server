@@ -38,22 +38,28 @@ function fetchUsers() {
 	    users.innerHTML += `
 		<div class="user" id="user-${user.username}">
 		    <div class="user__wrapper">
-			<div class="col user__name">${user.isPro ? '<span class="pro">PRO</span>' : ''}<span>${user.name}</span></div>
+			<div class="col user__name">
+			    ${user.status === 'demo' ? '<span class="demo badge">DEMO</span>' : ''}
+			    ${user.status === 'default' ? '<span class="default badge">Default</span>' : ''}
+			    ${user.status === 'pro' ? '<span class="pro badge">PRO</span>' : ''}
+			    <span>${user.name}</span>
+			</div>
 			<div class="col user__username">@${user.username}</div>
 			<div class="col user__refs">${user.refs_count}</div>
-			<div class="col user__balance">${user.balance.usdt.toFixed(2)} USDT</div>
+			<div class="col user__balance">${user.balance.usdt?.toFixed(2)} USDT</div>
 			<div class="col">
 			    <div class="user__online"></div>
-			    ${user.isPro ? '' : `<button class="make-pro btn btn_sm" data-id="${user.id}">Make PRO</button>`}
+			    ${user.status === 'default' ? '' : `<button data-type="default" class="make btn btn_sm" data-id="${user.id}">Make default</button>`}
+			    ${user.status === 'pro' ? '' : `<button data-type="pro" class="make btn btn_sm" data-id="${user.id}">Make PRO</button>`}
 			</div>
 		    </div>
 		</div>
 		`
 	})
 
-	document.querySelectorAll('.make-pro').forEach(btn => {
+	document.querySelectorAll('.make').forEach(btn => {
 	    btn.onclick = () => {
-		fetch(`http://${SERVER}:5000/api/pro`, {
+		fetch(`http://${SERVER}:5000/api/make/${btn.getAttribute('data-type')}`, {
 		    method: 'put',
 		    body: JSON.stringify({id: btn.getAttribute('data-id')}),
 		    headers: {

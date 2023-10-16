@@ -44,12 +44,25 @@ body {
     color: #1CFFA0;
 }
 
-.pro {
+.badge {
     font-size: 12px;
-    background: #03c373;
     padding: 3px 8px;
     border-radius: 6px;
     margin-right: 10px;
+}
+
+.demo {
+    background: #d5016d;
+    color: black;
+}
+
+.default {
+    background: #31b0ec;
+    color: black;
+}
+
+.pro {
+    background: #03c373;
     color: black;
 }
 
@@ -186,6 +199,14 @@ input {
 
 .col {
     width: 20%;
+}
+
+.col:nth-child(3) {
+    width: 5%;
+}
+
+.col:nth-child(5) {
+    width: 35%;
 }
 
 @media screen and (max-width: 400px) {
