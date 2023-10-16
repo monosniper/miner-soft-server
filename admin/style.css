@@ -52,7 +52,8 @@ body {
 }
 
 .user .col:nth-child(3),
-.user .col:nth-child(4) {
+.user .col:nth-child(4),
+.user .col:nth-child(5) {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -116,7 +117,9 @@ input {
         flex-direction: row-reverse;
     }
 
-    .user .col:nth-child(3), .user .col:nth-child(4) {
+    .user .col:nth-child(3), 
+    .user .col:nth-child(4),
+    .user .col:nth-child(5) {
         justify-content: flex-start;
     }
 }
