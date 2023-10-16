@@ -10,7 +10,7 @@ router.get('/users', UserController.index);
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 router.post('/logout', authMiddleware, UserController.logout);
-router.get('/refresh', UserController.refresh);
+router.post('/refresh', UserController.refresh);
 
 router.post('/withdraw', authMiddleware, WithdrawController.store);
 router.put('/options', authMiddleware, UserController.update);
