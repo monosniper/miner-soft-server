@@ -111,4 +111,12 @@ input {
     .user {
         overflow-x: scroll;
     }
+
+    .user__wrapper {
+        flex-direction: row-reverse;
+    }
+
+    .user .col:nth-child(3), .user .col:nth-child(4) {
+        justify-content: flex-start;
+    }
 }

@@ -24,7 +24,14 @@ const model = User.init({
     options: {
         type: DataTypes.JSON,
     },
+    balance: {
+        type: DataTypes.JSON,
+    },
     token: {
+        type: DataTypes.STRING,
+        unique: true
+    },
+    ref_code: {
         type: DataTypes.STRING,
         unique: true
     },
