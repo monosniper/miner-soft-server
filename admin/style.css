@@ -15,7 +15,7 @@ body {
 
 .container {
     margin: 0 auto;
-    width: 830px;
+    width: 1030px;
     max-width: 100%;
     padding: 0 15px;
 }
@@ -194,7 +194,7 @@ input {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-width: 600px;
+    min-width: 1000px;
 }
 
 .col {
@@ -205,8 +205,12 @@ input {
     width: 5%;
 }
 
+.col:nth-child(4) {
+    width: 15%;
+}
+
 .col:nth-child(5) {
-    width: 35%;
+    width: 40%;
 }
 
 @media screen and (max-width: 400px) {

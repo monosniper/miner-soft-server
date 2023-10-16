@@ -6,7 +6,9 @@ const UserController = require('../controllers/user-controller')
 const SettingController = require('../controllers/setting-controller')
 const User = require('../models/user-model')
 
-router.get('/users', UserController.index);
+router.get('/users', UserController.index)
+
+router.get('/me', authMiddleware, UserController.me);
 
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);

@@ -51,6 +51,7 @@ function fetchUsers() {
 			    <div class="user__online"></div>
 			    ${user.status === 'default' ? '' : `<button data-type="default" class="make btn btn_sm" data-id="${user.id}">Make default</button>`}
 			    ${user.status === 'pro' ? '' : `<button data-type="pro" class="make btn btn_sm" data-id="${user.id}">Make PRO</button>`}
+			    <button class="reset btn btn_sm" data-id="${user.id}">Reset balance</button>
 			</div>
 		    </div>
 		</div>

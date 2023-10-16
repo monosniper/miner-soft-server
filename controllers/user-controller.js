@@ -11,6 +11,10 @@ class UserController {
 	return res.json(users.map(user => new UserDto(user)))
     }
 
+    async me(req, res, next) {
+	return res.json(new UserDto(req.user))
+    }
+
     async register(req, res, next) {
 	try {
 	    const {name, username, password, ref_code} = req.body;
