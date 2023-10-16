@@ -38,7 +38,7 @@ fetch(`http://${SERVER}:5000/api/users`).then(rs => rs.json()).then(rs => {
 		    <div class="col user__name"><span>${user.name}</span></div>
 		    <div class="col user__username">@${user.username}</div>
 		    <div class="col user__refs">${user.refs_count}</div>
-		    <div class="col user__balance">0.00 USDT</div>
+		    <div class="col user__balance">${user.balance.usdt.toFixed(2)} USDT</div>
 		    <div class="col"><div class="user__online"></div></div>
 		</div>
             </div>
