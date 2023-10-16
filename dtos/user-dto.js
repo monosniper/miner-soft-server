@@ -2,7 +2,7 @@ module.exports = class UserDto {
     id;
     username;
     name;
-    isPro;
+    status;
     options;
     balance;
     token;
@@ -14,7 +14,7 @@ module.exports = class UserDto {
 	this.id = model.id;
 	this.username = model.username;
 	this.name = model.name;
-	this.isPro = model.isPro;
+	this.status = model.status;
 	this.options = model.options;
 	this.balance = model.balance;
 	this.token = model.token;

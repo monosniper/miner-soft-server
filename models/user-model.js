@@ -21,6 +21,10 @@ const model = User.init({
     password: {
         type: DataTypes.STRING,
     },
+    demo_time: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     options: {
         type: DataTypes.JSON,
     },
@@ -35,9 +39,9 @@ const model = User.init({
         type: DataTypes.STRING,
         unique: true
     },
-    isPro: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+    status: {
+        type: DataTypes.ENUM("demo", "default", "pro"),
+        defaultValue: "demo"
     },
     createdAt: { type: DATE, field: 'created_at' },
     updatedAt: { type: DATE, field: 'updated_at' },

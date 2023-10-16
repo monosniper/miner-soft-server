@@ -4,6 +4,7 @@ const authMiddleware = require('../middlewares/auth-middleware');
 const WithdrawController = require('../controllers/withdraw-controller')
 const UserController = require('../controllers/user-controller')
 const SettingController = require('../controllers/setting-controller')
+const User = require('../models/user-model')
 
 router.get('/users', UserController.index);
 
@@ -20,5 +21,12 @@ router.get('/settings', SettingController.index);
 router.put('/settings', SettingController.update);
 
 router.put('/pro', UserController.makePro);
+
+
+router.get('/test', async (req, res, next) => {
+    const user = await User.findByPk(1)
+
+    return res.json({test: user.createdAt.getSeconds()})
+});
 
 module.exports = router;
