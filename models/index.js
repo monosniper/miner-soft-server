@@ -16,4 +16,4 @@ const UserRefThrough = UserRef.init({}, {
     tableName: 'user_refs'
 });
 
-User.belongsToMany(User, { through: UserRefThrough, targetKey: 'ref_user_id', })
+User.belongsToMany(User, { through: UserRefThrough, as: 'refs' })

@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require('../middlewares/auth-middleware');
 const WithdrawController = require('../controllers/withdraw-controller')
 const UserController = require('../controllers/user-controller')
-const {body} = require('express-validator');
+const SettingController = require('../controllers/setting-controller')
 
 router.get('/users', UserController.index);
 
@@ -15,5 +15,8 @@ router.get('/refresh', UserController.refresh);
 router.post('/withdraw', authMiddleware, WithdrawController.store);
 router.put('/options', authMiddleware, UserController.update);
 router.put('/balance', authMiddleware, UserController.updateBalance);
+
+router.get('/settings', SettingController.index);
+router.put('/settings', SettingController.update);
 
 module.exports = router;

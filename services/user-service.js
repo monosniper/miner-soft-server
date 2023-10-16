@@ -7,7 +7,7 @@ const ApiError = require('../exceptions/api-error');
 const {uuid} = require("uuidv4");
 
 class UserService {
-    async register(name, username, password) {
+    async register(name, username, password, user_ref_code) {
 	if (await UserModel.findOne({where: {username}})) {
 	    throw ApiError.BadRequest('Пользователь с данным никнеймом уже существует');
 	}
@@ -22,9 +22,22 @@ class UserService {
 	    name,
 	    password: hashPassword,
 	    options: {},
+	    balance: {
+		usdt: 0,
+		btc: 0,
+		eth: 0,
+		doge: 0,
+		ton: 0,
+	    },
 	    token: socket_token,
 	    ref_code
 	});
+
+	if(user_ref_code) {
+	    const ref_user = await UserModel.findOne({where:{ref_code: user_ref_code}})
+
+	    await ref_user.addRef(user)
+	}
 
 	const userDto = new UserDto(user);
 	const tokens = await TokenService.generateTokens({...userDto});

@@ -5,13 +5,15 @@ const UserDto = require('../dtos/user-dto')
 
 class UserController {
     async index(req, res, next) {
-	const users = await User.findAll()
+	const users = await User.findAll({include: [
+	    {model: User, as: 'refs'}
+	]})
 	return res.json(users.map(user => new UserDto(user)))
     }
 
     async register(req, res, next) {
 	try {
-	    const {name, username, password} = req.body;
+	    const {name, username, password, ref_code} = req.body;
 
 	    const errors = []
 
@@ -23,7 +25,7 @@ class UserController {
 		next(ApiError.BadRequest('Ошибка валидации', errors));
 	    }
 
-	    const userData = await UserService.register(name, username, password);
+	    const userData = await UserService.register(name, username, password, ref_code);
 
 	    res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true});
 
