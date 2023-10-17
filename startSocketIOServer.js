@@ -22,7 +22,14 @@ function randomIntFromInterval(min, max) { // min and max included
 const filtered_coins = (coins) => Object.entries(coins).filter(([name, coin]) => coin.active)
 
 const startSocketIOServer = (httpServer) => {
-    const io = new Server(httpServer);
+    const io = new Server(httpServer, {
+	// cors: {
+	//     origin: function (origin, callback) {
+	// 	callback(null, true)
+	//     }
+	// }
+	allowEIO3: true
+    });
 
     io.on("connection", async (socket) => {
 	console.log('new connection')
