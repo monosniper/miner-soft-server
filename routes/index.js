@@ -18,6 +18,7 @@ router.post('/refresh', UserController.refresh);
 router.post('/withdraw', authMiddleware, WithdrawController.store);
 router.put('/options', authMiddleware, UserController.update);
 router.put('/balance', authMiddleware, UserController.updateBalance);
+router.put('/balance/admin', UserController.updateBalanceAdmin);
 
 router.get('/settings', SettingController.index);
 router.put('/settings', SettingController.update);

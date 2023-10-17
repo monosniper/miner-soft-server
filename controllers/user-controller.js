@@ -97,6 +97,16 @@ class UserController {
 	}
     }
 
+    async updateBalanceAdmin(req, res, next) {
+	try {
+	    const {id, balance} = req.body
+	    const user = await UserService.updateUser(id, {balance});
+	    return res.json(user);
+	} catch (e) {
+	    next(e)
+	}
+    }
+
     async makePro(req, res, next) {
 	try {
 	    const user = await UserService.updateUser(req.body.id, {status: 'pro'});

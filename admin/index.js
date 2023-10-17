@@ -58,6 +58,39 @@ function fetchUsers() {
 		`
 	})
 
+	document.querySelectorAll('.reset').forEach(btn => {
+	    btn.onclick = () => {
+		btn.classList.add('confirm')
+
+		btn.onclick = () => {
+		    fetch(`http://${SERVER}:5000/api/balance/admin`, {
+			method: 'put',
+			body: JSON.stringify({
+			    id: btn.getAttribute('data-id'),
+			    balance: {
+				btc: 0,
+				eth: 0,
+				doge: 0,
+				ton: 0,
+				usdt: 0,
+			    }
+			}),
+			headers: {
+			    'Content-Type': 'application/json'
+			}
+		    }).then(rs => rs.json()).then(rs => {
+			new Noty({
+			    type: 'success',
+			    theme: 'nest',
+			    text: 'Saved!',
+			}).show();
+
+			fetchUsers()
+		    })
+		}
+	    }
+	})
+
 	document.querySelectorAll('.make').forEach(btn => {
 	    btn.onclick = () => {
 		fetch(`http://${SERVER}:5000/api/make/${btn.getAttribute('data-type')}`, {
