@@ -5,6 +5,6 @@ const startExpressServer = require("./startExpressServer");
 const startSocketIOServer = require("./startSocketIOServer");
 
 connectDB().then(() => {
-    startExpressServer()
-    startSocketIOServer()
+    const httpServer = startExpressServer()
+    startSocketIOServer(httpServer)
 })

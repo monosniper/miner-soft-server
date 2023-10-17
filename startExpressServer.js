@@ -3,9 +3,11 @@ const cookieParser = require('cookie-parser');
 const errorMiddleware = require('./middlewares/error-middleware')
 const cors = require("cors");
 const indexRouter = require('./routes/index');
+const {createServer} = require("http");
 
 const startExpressServer = () => {
     const app = express();
+    const server = createServer(app)
 
     const corsOptions = {
 	credentials: true,
@@ -29,9 +31,9 @@ const startExpressServer = () => {
 
     app.use(errorMiddleware);
 
-    app.listen(process.env.API_PORT, () => {
-	console.log(`Express server is running on port ${process.env.API_PORT}.`);
-    });
+    server.listen(process.env.API_PORT);
+
+    return server
 }
 
 module.exports = startExpressServer
