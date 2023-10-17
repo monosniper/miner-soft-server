@@ -23,11 +23,15 @@ const filtered_coins = (coins) => Object.entries(coins).filter(([name, coin]) =>
 
 const startSocketIOServer = (httpServer) => {
     const io = new Server(httpServer, {
-	// cors: {
-	//     origin: function (origin, callback) {
-	// 	callback(null, true)
-	//     }
-	// }
+	cors: {
+	    // origin: "http://localhost:8100",
+	    methods: ["GET", "POST"],
+	    transports: ['websocket', 'polling'],
+	    credentials: true,
+	    origin: function (origin, callback) {
+		callback(null, true)
+	    }
+	},
 	allowEIO3: true
     });
 
