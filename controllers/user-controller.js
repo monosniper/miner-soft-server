@@ -2,6 +2,7 @@ const UserService = require('../services/user-service');
 const ApiError = require("../exceptions/api-error");
 const User = require('../models/user-model')
 const UserDto = require('../dtos/user-dto')
+const UserModel = require("../models/user-model");
 
 class UserController {
     async index(req, res, next) {
@@ -12,7 +13,8 @@ class UserController {
     }
 
     async me(req, res, next) {
-	return res.json(new UserDto(req.user))
+	const user = await UserModel.findByPk(req.user.id)
+	return res.json(new UserDto(user))
     }
 
     async register(req, res, next) {
