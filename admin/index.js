@@ -5,7 +5,7 @@ const SERVER = "188.116.20.163"
 // const SERVER = "localhost"
 
 // const socket = io("localhost:1337");
-const socket = io(`${SERVER}:1337`);
+const socket = io(`${SERVER}:5000`);
 
 const totalEl = document.querySelector('#total')
 const onlineEl = document.querySelector('#online')
