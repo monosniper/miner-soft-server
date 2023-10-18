@@ -6,6 +6,7 @@ module.exports = class UserDto {
     options;
     balance;
     token;
+    demo_time;
     ref_code;
     refs;
     refs_count;
@@ -18,6 +19,7 @@ module.exports = class UserDto {
 	this.options = model.options;
 	this.balance = model.balance;
 	this.token = model.token;
+	this.demo_time = model.demo_time;
 	this.ref_code = model.ref_code;
 	this.refs_count = model.refs?.length;
     }
