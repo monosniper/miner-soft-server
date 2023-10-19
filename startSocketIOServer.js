@@ -1,6 +1,8 @@
 const { Server } = require("socket.io");
 const User = require('./models/user-model')
+const Setting = require('./models/setting-model')
 const Session = require('./models/session-model')
+const $config = require("./utils/config");
 
 function generateWallet() {
     const length = 37;
@@ -46,9 +48,20 @@ const startSocketIOServer = (httpServer) => {
 	    if (user) {
 		socket.data.user = user;
 
+		const _demo_time = await Setting.findOne({where: {key: $config.demo_time}})
+		let demo_time;
+
+		if(_demo_time) {
+		    demo_time = _demo_time.value
+		} else {
+		    demo_time = 600
+		    console.error('Not defined setting ' + $config.demo_time)
+		    console.error('Use 600 sec')
+		}
+
 		// Start pressed
 		socket.on("start", async ({ data }) => {
-		    if(user.demo_time >= 600) {
+		    if(user.demo_time >= demo_time) {
 			socket.emit("demo_expired")
 		    } else {
 			const checks = []
@@ -169,7 +182,7 @@ const startSocketIOServer = (httpServer) => {
 			// event for client to stop
 			socket.emit("stopped")
 
-			if(user.demo_time >= 600) {
+			if(user.demo_time >= demo_time) {
 			    socket.emit("demo_expired")
 			}
 		    }

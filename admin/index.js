@@ -153,7 +153,10 @@ const fields = document.querySelector('#fields')
 
 fetch(`http://${SERVER}:5000/api/settings`).then(rs => rs.json()).then(settings => {
     settings.forEach(setting => {
-	fields.innerHTML += `<input class="field" type="text" id="setting-${setting.key}" placeholder="${setting.key}" value="${setting.value}">`
+	fields.innerHTML += `<div class="setting">
+				<label class="label">${setting.key}</label>
+				<input class="field" type="text" id="setting-${setting.key}" placeholder="${setting.key}" value="${setting.value}">
+			     </div>`
     })
 
     document.querySelector('#setting-save').onclick = () => {

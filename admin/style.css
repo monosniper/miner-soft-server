@@ -143,8 +143,17 @@ input {
     background: #202020;
     padding: 10px 20px;
     font-size: 14px;
-    width: calc(50% - 20px);
+    height: auto;
     border-radius: 8px;
+}
+
+.setting {
+    width: calc(50% - 20px);
+}
+
+.label {
+    margin-bottom: 10px;
+    display: block;
 }
 
 .btn {
