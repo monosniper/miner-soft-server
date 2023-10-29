@@ -119,13 +119,22 @@ class UserController {
     }
 
     async makeDefault(req, res, next) {
-	try {
-	    const user = await UserService.updateUser(req.body.id, {status: 'default'});
-	    return res.json(user);
-	} catch (e) {
-	    next(e)
-	}
+		try {
+			const user = await UserService.updateUser(req.body.id, {status: 'default'});
+			return res.json(user);
+		} catch (e) {
+			next(e)
+		}
     }
+
+	async deleteOne(req, res, next) {
+		try {
+			await UserService.deleteUser(req.query.id);
+			return res.json({succes: true});
+		} catch (e) {
+			next(e)
+		}
+	}
 }
 
 module.exports = new UserController();

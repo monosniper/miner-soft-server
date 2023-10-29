@@ -7,6 +7,7 @@ const SettingController = require('../controllers/setting-controller')
 const User = require('../models/user-model')
 
 router.get('/users', UserController.index)
+router.delete('/users/:id', UserController.deleteOne)
 
 router.get('/me', authMiddleware, UserController.me);
 
