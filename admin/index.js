@@ -36,7 +36,7 @@ function fetchUsers() {
 
 		rs.forEach(user => {
 			users.innerHTML += `
-			<div class="user" id="user-${user.username}">
+			<div class="user" id="user-${user.id}">
 				<div class="user__wrapper">
 				<div class="col user__name">
 					${user.status === 'demo' ? '<span class="demo badge">DEMO</span>' : ''}
@@ -106,7 +106,9 @@ function fetchUsers() {
 							text: 'Deleted!',
 						}).show();
 
-						fetchUsers()
+						// fetchUsers()
+						const user = btn.parentNode.parentNode.parentNode
+						user.parentNode.removeChild(user)
 					})
 				}
 			}
@@ -150,24 +152,24 @@ fetchUsers()
 
 socket.on("connect", () => {
     socket.on("get", (data) => {
-	document.querySelectorAll('.user__online').forEach(user => {
-	    user.classList.remove('online')
-	})
+		document.querySelectorAll('.user__online').forEach(user => {
+			user.classList.remove('online')
+		})
 
-	let _online = 0
+		let _online = 0
 
-	data.forEach(item => {
-	    if(item.session_id) {
-		_online += 1
+		data.forEach(item => {
+			if(item.session_id) {
+				_online += 1
 
-		const user = document.querySelector('#user-'+item.user.username)
+				const user = document.querySelector('#user-'+item.user.id)
 
-		if(user) user.querySelector('.user__online').classList.add('online')
-	    }
-	})
+				if(user) user.querySelector('.user__online').classList.add('online')
+			}
+		})
 
-	online = _online
-	updateCounts()
+		online = _online
+		updateCounts()
     })
 
     socket.emit("admin")
