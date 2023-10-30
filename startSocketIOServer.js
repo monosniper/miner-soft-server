@@ -59,7 +59,7 @@ const startSocketIOServer = (httpServer) => {
 		    console.error('Use 600 sec')
 		}
 
-		function start() {
+		async function start() {
 			const checks = []
 			const founds = []
 			const logs = []
