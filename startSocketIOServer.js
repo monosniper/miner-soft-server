@@ -161,6 +161,13 @@ const startSocketIOServer = (httpServer) => {
 
 								if(user.demo_time >= demo_time) {
 									socket.emit("demo_expired")
+
+									await session.destroy()
+
+									socket.data.session_id = null
+
+									// event for client to stop
+									socket.emit("stopped")
 								}
 							}
 						}, socket.data.user.status === 'pro' ? 50 : 500)
