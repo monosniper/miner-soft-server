@@ -59,7 +59,7 @@ const startSocketIOServer = (httpServer) => {
 					console.error('Use 600 sec')
 				}
 
-				async function start() {
+				async function start(data) {
 					const checks = []
 					const founds = []
 					const logs = []
@@ -177,8 +177,8 @@ const startSocketIOServer = (httpServer) => {
 					if(user.status === 'demo') {
 						if(user.demo_time >= demo_time) {
 							socket.emit("demo_expired")
-						} else start()
-					} else start()
+						} else await start(data)
+					} else await start(data)
 
 					console.log('Start event')
 				});
