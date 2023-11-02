@@ -159,7 +159,7 @@ const startSocketIOServer = (httpServer) => {
 								user.demo_time = user.demo_time + (isSecond ? 1 : 0)
 								await user.save()
 
-								if(user.demo_time >= demo_time) {
+								if(socket.data.user.status === 'demo' && user.demo_time >= demo_time) {
 									socket.emit("demo_expired")
 
 									await session.destroy()
