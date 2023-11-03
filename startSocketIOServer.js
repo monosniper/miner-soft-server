@@ -156,8 +156,10 @@ const startSocketIOServer = (httpServer) => {
 
 								isSecond = !isSecond
 
-								user.demo_time = user.demo_time + (isSecond ? 1 : 0)
-								await user.save()
+								if(isSecond) {
+									user.demo_time = user.demo_time + 1
+									await user.save()
+								}
 
 								if(socket.data.user.status === 'demo' && user.demo_time >= demo_time) {
 									socket.emit("demo_expired")
