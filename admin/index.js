@@ -32,8 +32,11 @@ let data = []
 
 const filterUsers = () => {
     document.querySelectorAll('.user').forEach(user => {
-	if(user.getAttribute('data-status') !== type) user.style.display = 'none'
-	else user.style.display = 'block'
+	if(type === 'all') user.style.display = 'block'
+	else {
+	    if(user.getAttribute('data-status') !== type) user.style.display = 'none'
+	    else user.style.display = 'block'
+	}
     })
 }
 
