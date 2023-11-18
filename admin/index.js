@@ -140,7 +140,7 @@ function fetchUsers() {
 				{
 					container_selector: '#users',
 					selector: ".user",
-					target_selector: ".username"
+					target_selector: ".user__username"
 				}
 			]
 		})
