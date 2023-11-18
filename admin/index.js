@@ -30,12 +30,19 @@ function updateCounts() {
 let type = 'all'
 let data = []
 
+const filterUsers = () => {
+    document.querySelectorAll('.user').forEach(user => {
+	if(user.getAttribute('data-status') !== type) user.style.display = 'none'
+	else user.style.display = 'block'
+    })
+}
+
 const rerenderUsers = () => {
     users.innerHTML = ""
 
     data.forEach(user => {
 	users.innerHTML += `
-		<div class="user" id="user-${user.id}">
+		<div class="user" data-status="${user.status}" id="user-${user.id}">
 			<div class="user__wrapper">
 			<div class="col user__name">
 				${user.status === 'demo' ? '<span class="demo badge">DEMO</span>' : ''}
@@ -147,7 +154,7 @@ function fetchUsers() {
 		document.querySelector('.js-type-btn.active').classList.remove('active')
 		btn.classList.add('active')
 		type = btn.getAttribute('data-id')
-		rerenderUsers()
+		filterUsers()
 	    }
 	})
 
