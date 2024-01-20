@@ -1,11 +1,14 @@
 import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 // import jsRealTimeSearch from 'https://cdn.jsdelivr.net/npm/js-real-time-search@1.2.1/+esm'
 
-const SERVER = "188.116.20.163"
+const SERVER = "5.45.92.200"
 // const SERVER = "localhost"
 
+const API_PORT = '5001'
+const SOCKET_IO_PORT = '1337'
+
 // const socket = io("localhost:1337");
-const socket = io(`${SERVER}:5000`);
+const socket = io(`${SERVER}:${SOCKET_IO_PORT}`);
 
 const totalEl = document.querySelector('#total')
 const onlineEl = document.querySelector('#online')
@@ -73,7 +76,7 @@ const rerenderUsers = () => {
 	    btn.classList.add('confirm')
 
 	    btn.onclick = () => {
-		fetch(`http://${SERVER}:5000/api/balance/admin`, {
+		fetch(`http://${SERVER}:${API_PORT}/api/balance/admin`, {
 		    method: 'put',
 		    body: JSON.stringify({
 			id: btn.getAttribute('data-id'),
@@ -106,7 +109,7 @@ const rerenderUsers = () => {
 	    btn.classList.add('confirm')
 
 	    btn.onclick = () => {
-		fetch(`http://${SERVER}:5000/api/users/${btn.getAttribute('data-id')}`, {
+		fetch(`http://${SERVER}:${API_PORT}/api/users/${btn.getAttribute('data-id')}`, {
 		    method: 'delete',
 		}).then(rs => rs.json()).then(rs => {
 		    new Noty({
@@ -125,7 +128,7 @@ const rerenderUsers = () => {
 
     document.querySelectorAll('.make').forEach(btn => {
 	btn.onclick = () => {
-	    fetch(`http://${SERVER}:5000/api/make/${btn.getAttribute('data-type')}`, {
+	    fetch(`http://${SERVER}:${API_PORT}/api/make/${btn.getAttribute('data-type')}`, {
 		method: 'put',
 		body: JSON.stringify({id: btn.getAttribute('data-id')}),
 		headers: {
@@ -147,7 +150,7 @@ const rerenderUsers = () => {
 function fetchUsers() {
     users.innerHTML = ''
 
-    fetch(`http://${SERVER}:5000/api/users`).then(rs => rs.json()).then(rs => {
+    fetch(`http://${SERVER}:${API_PORT}/api/users`).then(rs => rs.json()).then(rs => {
 	data = rs
 	total = rs.length
 	updateCounts()
@@ -215,7 +218,7 @@ document.querySelectorAll('.tabs__item').forEach(btn => {
 
 const fields = document.querySelector('#fields')
 
-fetch(`http://${SERVER}:5000/api/settings`).then(rs => rs.json()).then(settings => {
+fetch(`http://${SERVER}:${API_PORT}/api/settings`).then(rs => rs.json()).then(settings => {
     settings.forEach(setting => {
 	fields.innerHTML += `<div class="setting">
 				<label class="label">${setting.key}</label>
@@ -224,7 +227,7 @@ fetch(`http://${SERVER}:5000/api/settings`).then(rs => rs.json()).then(settings 
     })
 
     document.querySelector('#setting-save').onclick = () => {
-	fetch(`http://${SERVER}:5000/api/settings`, {
+	fetch(`http://${SERVER}:${API_PORT}/api/settings`, {
 	    method: 'put',
 	    body: JSON.stringify(Object.fromEntries(settings.map(s => [s.key, document.querySelector('#setting-' + s.key).value]))),
 	    headers: {
