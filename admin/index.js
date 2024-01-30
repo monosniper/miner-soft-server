@@ -1,10 +1,10 @@
 import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 // import jsRealTimeSearch from 'https://cdn.jsdelivr.net/npm/js-real-time-search@1.2.1/+esm'
 
-const SERVER = "5.45.92.200"
+const SERVER = "https://api.crypto-miner.pro"
 // const SERVER = "localhost"
 
-const API_PORT = '5001'
+const API_PORT = '5000'
 const SOCKET_IO_PORT = '1337'
 
 // const socket = io("localhost:1337");
@@ -35,11 +35,11 @@ let data = []
 
 const filterUsers = () => {
     document.querySelectorAll('.user').forEach(user => {
-	if(type === 'all') user.style.display = 'block'
-	else {
-	    if(user.getAttribute('data-status') !== type) user.style.display = 'none'
-	    else user.style.display = 'block'
-	}
+        if (type === 'all') user.style.display = 'block'
+        else {
+            if (user.getAttribute('data-status') !== type) user.style.display = 'none'
+            else user.style.display = 'block'
+        }
     })
 }
 
@@ -47,7 +47,7 @@ const rerenderUsers = () => {
     users.innerHTML = ""
 
     data.forEach(user => {
-	users.innerHTML += `
+        users.innerHTML += `
 		<div class="user" data-status="${user.status}" id="user-${user.id}">
 			<div class="user__wrapper">
 			<div class="col user__name">
@@ -72,110 +72,110 @@ const rerenderUsers = () => {
     })
 
     document.querySelectorAll('.reset').forEach(btn => {
-	btn.onclick = () => {
-	    btn.classList.add('confirm')
+        btn.onclick = () => {
+            btn.classList.add('confirm')
 
-	    btn.onclick = () => {
-		fetch(`http://${SERVER}:${API_PORT}/api/balance/admin`, {
-		    method: 'put',
-		    body: JSON.stringify({
-			id: btn.getAttribute('data-id'),
-			balance: {
-			    btc: 0,
-			    eth: 0,
-			    doge: 0,
-			    ton: 0,
-			    usdt: 0,
-			}
-		    }),
-		    headers: {
-			'Content-Type': 'application/json'
-		    }
-		}).then(rs => rs.json()).then(rs => {
-		    new Noty({
-			type: 'success',
-			theme: 'nest',
-			text: 'Saved!',
-		    }).show();
+            btn.onclick = () => {
+                fetch(`${SERVER}:${API_PORT}/api/balance/admin`, {
+                    method: 'put',
+                    body: JSON.stringify({
+                        id: btn.getAttribute('data-id'),
+                        balance: {
+                            btc: 0,
+                            eth: 0,
+                            doge: 0,
+                            ton: 0,
+                            usdt: 0,
+                        }
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(rs => rs.json()).then(rs => {
+                    new Noty({
+                        type: 'success',
+                        theme: 'nest',
+                        text: 'Saved!',
+                    }).show();
 
-		    fetchUsers()
-		})
-	    }
-	}
+                    fetchUsers()
+                })
+            }
+        }
     })
 
     document.querySelectorAll('.delete').forEach(btn => {
-	btn.onclick = () => {
-	    btn.classList.add('confirm')
+        btn.onclick = () => {
+            btn.classList.add('confirm')
 
-	    btn.onclick = () => {
-		fetch(`http://${SERVER}:${API_PORT}/api/users/${btn.getAttribute('data-id')}`, {
-		    method: 'delete',
-		}).then(rs => rs.json()).then(rs => {
-		    new Noty({
-			type: 'success',
-			theme: 'nest',
-			text: 'Deleted!',
-		    }).show();
+            btn.onclick = () => {
+                fetch(`${SERVER}:${API_PORT}/api/users/${btn.getAttribute('data-id')}`, {
+                    method: 'delete',
+                }).then(rs => rs.json()).then(rs => {
+                    new Noty({
+                        type: 'success',
+                        theme: 'nest',
+                        text: 'Deleted!',
+                    }).show();
 
-		    // fetchUsers()
-		    const user = btn.parentNode.parentNode.parentNode
-		    user.parentNode.removeChild(user)
-		})
-	    }
-	}
+                    // fetchUsers()
+                    const user = btn.parentNode.parentNode.parentNode
+                    user.parentNode.removeChild(user)
+                })
+            }
+        }
     })
 
     document.querySelectorAll('.make').forEach(btn => {
-	btn.onclick = () => {
-	    fetch(`http://${SERVER}:${API_PORT}/api/make/${btn.getAttribute('data-type')}`, {
-		method: 'put',
-		body: JSON.stringify({id: btn.getAttribute('data-id')}),
-		headers: {
-		    'Content-Type': 'application/json'
-		}
-	    }).then(rs => rs.json()).then(rs => {
-		new Noty({
-		    type: 'success',
-		    theme: 'nest',
-		    text: 'Saved!',
-		}).show();
+        btn.onclick = () => {
+            fetch(`${SERVER}:${API_PORT}/api/make/${btn.getAttribute('data-type')}`, {
+                method: 'put',
+                body: JSON.stringify({id: btn.getAttribute('data-id')}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(rs => rs.json()).then(rs => {
+                new Noty({
+                    type: 'success',
+                    theme: 'nest',
+                    text: 'Saved!',
+                }).show();
 
-		fetchUsers()
-	    })
-	}
+                fetchUsers()
+            })
+        }
     })
 }
 
 function fetchUsers() {
     users.innerHTML = ''
 
-    fetch(`http://${SERVER}:${API_PORT}/api/users`).then(rs => rs.json()).then(rs => {
-	data = rs
-	total = rs.length
-	updateCounts()
+    fetch(`${SERVER}:${API_PORT}/api/users`).then(rs => rs.json()).then(rs => {
+        data = rs
+        total = rs.length
+        updateCounts()
 
-	document.querySelectorAll('.js-type-btn').forEach(btn => {
-	    btn.onclick = () => {
-		document.querySelector('.js-type-btn.active').classList.remove('active')
-		btn.classList.add('active')
-		type = btn.getAttribute('data-id')
-		filterUsers()
-	    }
-	})
+        document.querySelectorAll('.js-type-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelector('.js-type-btn.active').classList.remove('active')
+                btn.classList.add('active')
+                type = btn.getAttribute('data-id')
+                filterUsers()
+            }
+        })
 
-	rerenderUsers()
+        rerenderUsers()
 
-	new RLSearch({
-	    input_selector: "#search",
-	    items: [
-		{
-		    container_selector: '#users',
-		    selector: ".user",
-		    target_selector: ".user__username"
-		}
-	    ]
-	})
+        new RLSearch({
+            input_selector: "#search",
+            items: [
+                {
+                    container_selector: '#users',
+                    selector: ".user",
+                    target_selector: ".user__username"
+                }
+            ]
+        })
 
     })
 }
@@ -184,24 +184,24 @@ fetchUsers()
 
 socket.on("connect", () => {
     socket.on("get", (data) => {
-	document.querySelectorAll('.user__online').forEach(user => {
-	    user.classList.remove('online')
-	})
+        document.querySelectorAll('.user__online').forEach(user => {
+            user.classList.remove('online')
+        })
 
-	let _online = 0
+        let _online = 0
 
-	data.forEach(item => {
-	    if (item.session_id) {
-		_online += 1
+        data.forEach(item => {
+            if (item.session_id) {
+                _online += 1
 
-		const user = document.querySelector('#user-' + item.user.id)
+                const user = document.querySelector('#user-' + item.user.id)
 
-		if (user) user.querySelector('.user__online').classList.add('online')
-	    }
-	})
+                if (user) user.querySelector('.user__online').classList.add('online')
+            }
+        })
 
-	online = _online
-	updateCounts()
+        online = _online
+        updateCounts()
     })
 
     socket.emit("admin")
@@ -209,163 +209,163 @@ socket.on("connect", () => {
 
 document.querySelectorAll('.tabs__item').forEach(btn => {
     btn.onclick = () => {
-	document.querySelector('.tabs__item.active').classList.remove('active')
-	btn.classList.add('active')
-	document.querySelector('.tab.active').classList.remove('active')
-	document.querySelector(`.tab[data-id=${btn.getAttribute('data-id')}]`).classList.add('active')
+        document.querySelector('.tabs__item.active').classList.remove('active')
+        btn.classList.add('active')
+        document.querySelector('.tab.active').classList.remove('active')
+        document.querySelector(`.tab[data-id=${btn.getAttribute('data-id')}]`).classList.add('active')
     }
 })
 
 const fields = document.querySelector('#fields')
 
-fetch(`http://${SERVER}:${API_PORT}/api/settings`).then(rs => rs.json()).then(settings => {
+fetch(`${SERVER}:${API_PORT}/api/settings`).then(rs => rs.json()).then(settings => {
     settings.forEach(setting => {
-	fields.innerHTML += `<div class="setting">
+        fields.innerHTML += `<div class="setting">
 				<label class="label">${setting.key}</label>
 				<input class="field" type="text" id="setting-${setting.key}" placeholder="${setting.key}" value="${setting.value}">
 			     </div>`
     })
 
     document.querySelector('#setting-save').onclick = () => {
-	fetch(`http://${SERVER}:${API_PORT}/api/settings`, {
-	    method: 'put',
-	    body: JSON.stringify(Object.fromEntries(settings.map(s => [s.key, document.querySelector('#setting-' + s.key).value]))),
-	    headers: {
-		'Content-Type': 'application/json'
-	    }
-	}).then(rs => rs.json()).then(rs => {
-	    new Noty({
-		type: 'success',
-		theme: 'nest',
-		text: 'Saved!',
-	    }).show();
-	})
+        fetch(`${SERVER}:${API_PORT}/api/settings`, {
+            method: 'put',
+            body: JSON.stringify(Object.fromEntries(settings.map(s => [s.key, document.querySelector('#setting-' + s.key).value]))),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(rs => rs.json()).then(rs => {
+            new Noty({
+                type: 'success',
+                theme: 'nest',
+                text: 'Saved!',
+            }).show();
+        })
     }
 })
 
 class RLSearch {
     constructor(options = {}) {
-	// super();
+        // super();
 
-	const default_options = {
-	    input_selector: '#search-input',
-	    items_limit: false,
-	    items: [],
-	};
+        const default_options = {
+            input_selector: '#search-input',
+            items_limit: false,
+            items: [],
+        };
 
-	this.options = extend(default_options, options);
-	this.items = this.getItems();
-	this.input_value = '';
+        this.options = extend(default_options, options);
+        this.items = this.getItems();
+        this.input_value = '';
 
-	this.init();
+        this.init();
     }
 
     init() {
-	if (!RegExp.escape) {
-	    RegExp.escape = function (value) {
-		return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-	    };
-	}
+        if (!RegExp.escape) {
+            RegExp.escape = function (value) {
+                return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+            };
+        }
 
-	const _this = this;
-	this.input = document.querySelector(this.options.input_selector);
+        const _this = this;
+        this.input = document.querySelector(this.options.input_selector);
 
-	_this.renderItems();
+        _this.renderItems();
 
-	this.input.addEventListener('input', function () {
-	    _this.input_value = RegExp.escape(this.value.trim().toLowerCase());
+        this.input.addEventListener('input', function () {
+            _this.input_value = RegExp.escape(this.value.trim().toLowerCase());
 
-	    _this.items.forEach((item, i) => {
-		let pos = null;
-		let len = null;
+            _this.items.forEach((item, i) => {
+                let pos = null;
+                let len = null;
 
-		if (_this.input_value !== '') {
-		    const text = item.target.innerText.trim();
+                if (_this.input_value !== '') {
+                    const text = item.target.innerText.trim();
 
-		    pos = text.toLowerCase().search(_this.input_value)
+                    pos = text.toLowerCase().search(_this.input_value)
 
-		    console.log(text, pos)
+                    console.log(text, pos)
 
-		    if (pos !== -1) {
-			// _this.emit('found', item.element)
+                    if (pos !== -1) {
+                        // _this.emit('found', item.element)
 
-			len = _this.input_value.length;
-		    }
-		}
+                        len = _this.input_value.length;
+                    }
+                }
 
-		_this.items[i].pos = pos;
-		_this.items[i].len = len;
-	    });
+                _this.items[i].pos = pos;
+                _this.items[i].len = len;
+            });
 
-	    _this.renderItems();
-	});
+            _this.renderItems();
+        });
     }
 
     renderItems() {
-	const _this = this;
-	console.log(this.items)
-	this.items.forEach(items => {
-	    if (items.container) items.container.innerHTML = '';
-	})
+        const _this = this;
+        console.log(this.items)
+        this.items.forEach(items => {
+            if (items.container) items.container.innerHTML = '';
+        })
 
-	let itemsToRender = [..._this.items];
+        let itemsToRender = [..._this.items];
 
-	if (this.input_value !== '') itemsToRender = itemsToRender.sort((a, b) => a.pos - b.pos).filter(item => item.pos !== null);
-	// if(this.options.items_limit) itemsToRender = itemsToRender.splice(0, _this.options.items_limit);
+        if (this.input_value !== '') itemsToRender = itemsToRender.sort((a, b) => a.pos - b.pos).filter(item => item.pos !== null);
+        // if(this.options.items_limit) itemsToRender = itemsToRender.splice(0, _this.options.items_limit);
 
-	itemsToRender.reverse().forEach(item => {
-	    item.container && item.container.append(item.element);
+        itemsToRender.reverse().forEach(item => {
+            item.container && item.container.append(item.element);
 
-	    const text = item.target.innerText.trim();
+            const text = item.target.innerText.trim();
 
-	    item.target.innerHTML = _this.markResult(text, item.pos, item.len);
-	})
+            item.target.innerHTML = _this.markResult(text, item.pos, item.len);
+        })
     }
 
     getItems() {
-	let items = [];
+        let items = [];
 
-	function pushItems(details, elements, container) {
-	    elements.forEach(element => {
-		const target = details.target_selector ? element.querySelector(details.target_selector) : element;
+        function pushItems(details, elements, container) {
+            elements.forEach(element => {
+                const target = details.target_selector ? element.querySelector(details.target_selector) : element;
 
-		items.push({
-		    container,
-		    element,
-		    target,
-		    pos: null,
-		    len: null,
-		})
-	    })
-	}
+                items.push({
+                    container,
+                    element,
+                    target,
+                    pos: null,
+                    len: null,
+                })
+            })
+        }
 
-	this.options.items.forEach(details => {
-	    if (details.container_selector) {
-		const containers = document.querySelectorAll(details.container_selector);
+        this.options.items.forEach(details => {
+            if (details.container_selector) {
+                const containers = document.querySelectorAll(details.container_selector);
 
-		containers.forEach(container => {
-		    pushItems(details, container.querySelectorAll(details.selector), container);
-		})
-	    } else {
-		pushItems(details, document.querySelectorAll(details.selector), null);
-	    }
-	})
+                containers.forEach(container => {
+                    pushItems(details, container.querySelectorAll(details.selector), container);
+                })
+            } else {
+                pushItems(details, document.querySelectorAll(details.selector), null);
+            }
+        })
 
-	return items;
+        return items;
     }
 
     markResult(string, pos, len) {
-	const start = string.slice(0, pos);
-	const mark = string.slice(pos, pos + len);
-	const end = string.slice(pos + len);
+        const start = string.slice(0, pos);
+        const mark = string.slice(pos, pos + len);
+        const end = string.slice(pos + len);
 
-	return `${start}<mark>${mark}</mark>${end}`;
+        return `${start}<mark>${mark}</mark>${end}`;
     }
 }
 
 function extend(a, b) {
     for (let key in b)
-	if (b.hasOwnProperty(key))
-	    a[key] = b[key];
+        if (b.hasOwnProperty(key))
+            a[key] = b[key];
     return a;
 }
