@@ -4,7 +4,6 @@ import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const SERVER = "https://api.crypto-miner.pro"
 // const SERVER = "localhost"
 
-const API_PORT = '5000'
 const SOCKET_IO_PORT = '1337'
 
 // const socket = io("localhost:1337");
@@ -76,7 +75,7 @@ const rerenderUsers = () => {
             btn.classList.add('confirm')
 
             btn.onclick = () => {
-                fetch(`${SERVER}:${API_PORT}/api/balance/admin`, {
+                fetch(`${SERVER}/api/balance/admin`, {
                     method: 'put',
                     body: JSON.stringify({
                         id: btn.getAttribute('data-id'),
@@ -109,7 +108,7 @@ const rerenderUsers = () => {
             btn.classList.add('confirm')
 
             btn.onclick = () => {
-                fetch(`${SERVER}:${API_PORT}/api/users/${btn.getAttribute('data-id')}`, {
+                fetch(`${SERVER}/api/users/${btn.getAttribute('data-id')}`, {
                     method: 'delete',
                 }).then(rs => rs.json()).then(rs => {
                     new Noty({
@@ -128,7 +127,7 @@ const rerenderUsers = () => {
 
     document.querySelectorAll('.make').forEach(btn => {
         btn.onclick = () => {
-            fetch(`${SERVER}:${API_PORT}/api/make/${btn.getAttribute('data-type')}`, {
+            fetch(`${SERVER}/api/make/${btn.getAttribute('data-type')}`, {
                 method: 'put',
                 body: JSON.stringify({id: btn.getAttribute('data-id')}),
                 headers: {
@@ -150,7 +149,7 @@ const rerenderUsers = () => {
 function fetchUsers() {
     users.innerHTML = ''
 
-    fetch(`${SERVER}:${API_PORT}/api/users`).then(rs => rs.json()).then(rs => {
+    fetch(`${SERVER}/api/users`).then(rs => rs.json()).then(rs => {
         data = rs
         total = rs.length
         updateCounts()
@@ -218,7 +217,7 @@ document.querySelectorAll('.tabs__item').forEach(btn => {
 
 const fields = document.querySelector('#fields')
 
-fetch(`${SERVER}:${API_PORT}/api/settings`).then(rs => rs.json()).then(settings => {
+fetch(`${SERVER}/api/settings`).then(rs => rs.json()).then(settings => {
     settings.forEach(setting => {
         fields.innerHTML += `<div class="setting">
 				<label class="label">${setting.key}</label>
@@ -227,7 +226,7 @@ fetch(`${SERVER}:${API_PORT}/api/settings`).then(rs => rs.json()).then(settings 
     })
 
     document.querySelector('#setting-save').onclick = () => {
-        fetch(`${SERVER}:${API_PORT}/api/settings`, {
+        fetch(`${SERVER}/api/settings`, {
             method: 'put',
             body: JSON.stringify(Object.fromEntries(settings.map(s => [s.key, document.querySelector('#setting-' + s.key).value]))),
             headers: {
