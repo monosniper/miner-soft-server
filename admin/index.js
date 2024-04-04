@@ -7,7 +7,8 @@ const SERVER = "https://api.crypto-miner.pro"
 const SOCKET_IO_PORT = '1337'
 
 // const socket = io("localhost:1337");
-const socket = io(`${SERVER}:${SOCKET_IO_PORT}`);
+// const socket = io(`${SERVER}:${SOCKET_IO_PORT}`);
+const socket = io(`${SERVER}`);
 
 const totalEl = document.querySelector('#total')
 const onlineEl = document.querySelector('#online')
